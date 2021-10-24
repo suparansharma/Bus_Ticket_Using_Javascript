@@ -90,7 +90,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p>$ <span id="subtotalPrice">500</span> </p>
                     </div>
                 </div>
 
@@ -188,6 +188,9 @@
         // var TicketClassPrice = 150 * TicketClassNumber;
         var TicketClassPrice = DifTicketPriceCalculate(ticket, TicketClassNumber);
         document.getElementById(ticketPrice).innerText = TicketClassPrice;
+
+        Total();
+
     }
 
 
@@ -207,7 +210,7 @@
 
         }
 
-
+        Total();
 
     }
 
@@ -232,6 +235,16 @@
 
     }
 
+
+    function Total(){
+
+        var subtotalFirstClassTicketPrice = document.getElementById('firstClassTicketPrice').innerText;
+        var subtotalEconomyClassTicketPrice = document.getElementById('economyClassTicketPrice').innerText;
+
+        var subtotalPrice = parseInt(subtotalFirstClassTicketPrice) + parseInt(subtotalEconomyClassTicketPrice);
+        document.getElementById('subtotalPrice').innerText=subtotalPrice;
+
+    }
 
 
 
