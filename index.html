@@ -36,29 +36,31 @@
                 scrambled it to make a type specimen book.</p>
         </div>
 
+        
 
-        <div class="booking-form">
+
+        <div id="form" class="booking-form">
             <h3>Explore By Bus</h3>
 
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">From</label>
-                        <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                        <input class="inp-style" type="text" name="" placeholder="Dhaka" id="flying-from">
                 </div>
                 <div class="input-group">
                     <label" for="">From</label>
-                        <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                        <input class="inp-style" type="text" name="" placeholder="Chittagone" id="flying-to">
                 </div>
             </div>
 
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                        <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="" id="flying-departure" >
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
-                    <input class="inp-style" type="date" name="">
+                    <input class="inp-style" type="date" name="" id="flying-return">
                 </div>
             </div>
             <div class="inputs">
@@ -68,7 +70,8 @@
                         <input id="firstClassTicket" class="inp-style inp-width" type="number" name="" value="1">
                     </div>
                     <div class="plus-minus-btn">
-                        <p> <button id="firstClassTicketAdd">+</button> <button id="firstClassTicketRemove">-</button>
+                        <p> <button class="plus-minus-btn" id="firstClassTicketAdd">+</button>
+                             <button class="plus-minus-btn" id="firstClassTicketRemove">-</button>
                         </p>
                     </div>
                 </div>
@@ -78,8 +81,8 @@
                         <input id="economyClassTicket" class="inp-style inp-width" type="number" name="" value="1">
                     </div>
                     <div class="plus-minus-btn">
-                        <p> <button id="economyClassTicketAdd">+</button> <button
-                                id="economyClassTicketRemove">-</button> </p>
+                        <p> <button class="plus-minus-btn" id="economyClassTicketAdd">+</button> <button
+                            class="plus-minus-btn"    id="economyClassTicketRemove">-</button> </p>
                     </div>
                 </div>
 
@@ -99,7 +102,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$ <span id="tax">50</span> </p>
                     </div>
                 </div>
                 <hr>
@@ -108,11 +111,33 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$ <span id="total">550</span> </p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="bookingbtn" class="btn-style">Book Now</button>
+
+         
+        </div>
+
+
+        <div id="bill-area">
+            <h1 style="text-align: center;">Congratulation</h1>
+            
+            <div class="submit-area">
+            
+                Flying From: <b id="booked-from"></b><br>
+                Flying To: <b id="booked-to"></b><br>
+                Departure: <b id="booked-departure"></b><br>
+                Return :<b id="booked-return"></b><br>
+                <!-- Subtotal:<span id="booked-sub-total-price"></span></div> -->
+                Subtotal: <b id="booked-sub-total-price"></b><br>
+                Tax: <b id="booked-tax"></b><br>
+                Total: <b id="booked-total"></b><br>
+                <button style="text-align: center;" id="boot-button" class="btn-style">Download</button>
+
+
+            </div>
         </div>
     </main>
 
@@ -244,7 +269,84 @@
         var subtotalPrice = parseInt(subtotalFirstClassTicketPrice) + parseInt(subtotalEconomyClassTicketPrice);
         document.getElementById('subtotalPrice').innerText=subtotalPrice;
 
+
+
+        var tax = subtotalPrice *.1;
+        document.getElementById('tax').innerText=tax;
+
+        var Total = subtotalPrice + tax;
+        document.getElementById('total').innerText=Total;
+
+
     }
+
+
+    var bookingButton = document.getElementById('bookingbtn');
+    bookingButton.addEventListener('click', function () {
+        var form = document.getElementById('form');
+        // form.style.display = "none";
+
+        var billPaper = document.getElementById('bill-area');
+        // billPaper.style.display = "block";
+
+
+
+        let flyingFrom = document.getElementById("flying-from").value;
+            let bookedTo = document.getElementById("flying-to").value;
+            let flyingDeparture = document.getElementById("flying-departure").value;
+            let flyingReturn = document.getElementById("flying-return").value;
+            let subtotalPrice = parseInt(document.getElementById("subtotalPrice").innerText);
+            let tax = parseInt(document.getElementById("tax").innerText);
+            let total = parseInt(document.getElementById("total").innerText);
+            
+        
+            if (flyingFrom == "") {
+                alert("Enter your Flying From Location");
+            }
+            else if (bookedTo == "") {
+                alert("Enter your Flying To Location");
+            }
+            else if (flyingDeparture == "") {
+                alert("Enter Your Departre date");
+            }
+            else if (flyingReturn == "") {
+                alert("Enter Your Retrun date");
+            }
+            else if (total < 100) {
+                alert("Please Add Your Ticket First");
+            }
+            else {
+
+                form.style.display = "none";
+                billPaper.style.display = "block";
+            document.getElementById("booked-from").innerHTML =flyingFrom;
+
+           
+            document.getElementById("booked-to").innerHTML =bookedTo;
+
+            
+            document.getElementById("booked-departure").innerHTML =flyingDeparture;
+
+           
+            document.getElementById("booked-return").innerHTML = flyingReturn;
+
+            document.getElementById("booked-sub-total-price").innerHTML = document.getElementById("subtotalPrice").innerText;
+
+            document.getElementById("booked-tax").innerHTML = document.getElementById("tax").innerText;
+
+            document.getElementById("booked-total").innerHTML = document.getElementById("total").innerText;
+
+
+
+                
+            }
+
+
+
+        
+
+        console.log('button clicked');
+    })
 
 
 
